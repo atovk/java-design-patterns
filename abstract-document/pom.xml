@@ -33,6 +33,10 @@
   <artifactId>abstract-document</artifactId>
   <dependencies>
     <dependency>
+      <groupId>org.scalatest</groupId>
+      <artifactId>scalatest_${scala.binary.version}</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
       <scope>test</scope>
@@ -40,6 +44,12 @@
   </dependencies>
   <build>
     <plugins>
+
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+      </plugin>
+
       <!-- Maven assembly plugin is invoked with default setting which we have 
 				in parent pom and specifying the class having main method -->
       <plugin>

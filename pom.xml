@@ -82,6 +82,13 @@
     <sonar.projectKey>iluwatar_java-design-patterns</sonar.projectKey>
     <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
     <sonar.projectName>Java Design Patterns</sonar.projectName>
+    <!-- Scala 2.12 -->
+    <scala.version>2.12.16</scala.version>
+    <scala.binary.version>2.12</scala.binary.version>
+    <scala.logging.version>3.9.3</scala.logging.version>
+    <scalatest.version>3.2.2</scalatest.version>
+    <enumeratum.version>1.6.1</enumeratum.version>
+
   </properties>
   <modules>
     <module>abstract-factory</module>
@@ -240,6 +247,43 @@
   </repositories>
   <dependencyManagement>
     <dependencies>
+      <!-- scala -->
+      <dependency>
+        <groupId>org.scala-lang</groupId>
+        <artifactId>scala-compiler</artifactId>
+        <version>${scala.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.scala-lang</groupId>
+        <artifactId>scala-library</artifactId>
+        <version>${scala.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.scala-lang</groupId>
+        <artifactId>scala-reflect</artifactId>
+        <version>${scala.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.beachape</groupId>
+        <artifactId>enumeratum_${scala.binary.version}</artifactId>
+        <version>${enumeratum.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.typesafe.scala-logging</groupId>
+        <artifactId>scala-logging_${scala.binary.version}</artifactId>
+        <version>${scala.logging.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.scalatest</groupId>
+        <artifactId>scalatest_${scala.binary.version}</artifactId>
+        <version>${scalatest.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+
       <dependency>
         <groupId>net.bytebuddy</groupId>
         <artifactId>byte-buddy</artifactId>
@@ -414,6 +458,30 @@
   <build>
     <pluginManagement>
       <plugins>
+
+        <plugin>
+          <groupId>net.alchim31.maven</groupId>
+          <artifactId>scala-maven-plugin</artifactId>
+          <version>4.4.0</version>
+          <executions>
+            <execution>
+              <id>scala-compile-first</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>add-source</goal>
+                <goal>compile</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>scala-test-compile</id>
+              <phase>process-test-resources</phase>
+              <goals>
+                <goal>testCompile</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
